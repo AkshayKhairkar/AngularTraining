@@ -1,0 +1,29 @@
+<h3>Data Binding</h3>
+
+<h4>Interpolation</h4>
+
+<p>
+    User: {{ user.firstName + " " + user.lastName}}
+</p>
+
+<h4>Property Binding</h4>
+
+<div>
+    Count: <input type="number" [value]="count" 
+    (input)="count=$event.target.value">
+</div>
+<p>Count: {{count}}</p>
+<button (click)="inc($event);">Increment</button>
+
+<h4>2-Way Binding</h4>
+
+Enable: <input type="checkbox" #myCheckBox ngModel>
+{{myCheckBox.checked}}
+<div [hidden]="myCheckBox.checked">
+    Message: <input [(ngModel)]="message"
+    [ngModelOptions]="{updateOn:'blur'}"
+    #msgTB>
+
+    <p>Message: {{message}}</p>
+    <p>Message TB: {{msgTB.value}}</p>
+</div>
