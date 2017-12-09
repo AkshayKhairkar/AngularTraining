@@ -1,0 +1,11 @@
+<h3>RXJS</h3>
+
+<form [formGroup]="searchGroup">
+  <p>
+    Search: <input formControlName="search">
+  </p>
+</form>
+
+<div *ngFor="let item of results">
+  <p>{{item}}</p>
+</div>

@@ -1,0 +1,29 @@
+<h4>Customer Edit #{{customer.id}}</h4>
+
+<form #myForm="ngForm"> <!-- Getting a handler to Form Group -->
+<fieldset>
+  <p>Name</p>
+  <div>
+    <input [(ngModel)]="temp.name" name="cname" required minlength="3" #name="ngModel" >
+    <span *ngIf="name.invalid">
+      The field is required and minimum length is 3
+    </span>
+  </div>
+
+  <p>Location</p>
+  <div>
+    <input [(ngModel)]="temp.location" name="cloc" required pattern="[A-Za-z]{2,}" #loc="ngModel" >
+    <span *ngIf="loc.hasError('required')">
+      The field is required
+    </span>
+    <span *ngIf="loc.hasError('pattern')">
+      Invalid Pattern
+    </span>
+  </div>
+
+  <div>
+    <button (click)="save();" [disabled]="myForm.invalid || myForm.pristine">Save</button>
+    <button (click)="cancel();">Cancel</button>
+  </div>
+</fieldset>
+</form>

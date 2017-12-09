@@ -1,0 +1,78 @@
+<h3>Customers</h3>
+
+<p-dataTable [value]="data">
+    <p-column field="id" header="CustomerID"></p-column>
+    <p-column field="name" header="Name"></p-column>
+    <p-column field="location" header="Location"></p-column>
+</p-dataTable>
+
+
+<div>
+<input type="search" [(ngModel)]="searchText">
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Customer Id</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let cust of data | custFilter: searchText ; let i = index;let odd=odd; let even=even;"
+      [ngClass]="{oddCls: odd, evenCls: even}">
+      <td>{{i}}</td>
+      <td>{{cust.id}}</td>  
+      <td>{{cust.name}}</td>
+      <td>{{cust.location}}</td>
+      <td>
+        <button (click)="edit(cust);">Edit</button>
+        <a routerLink="/customers/{{cust.id}}">Details</a>
+      </td>
+    </tr>
+    <tr [formGroup]="myFormGroup">
+      <td><button (click)="save();" [disabled]="myFormGroup.invalid">Save</button></td>
+      <td>
+        <input type="number" placeholder="Id" [(ngModel)]="current.id" formControlName="id">
+        <span *ngIf="myFormGroup.get('id').invalid">The field is required.</span>
+      </td>
+      <td>
+          <input placeholder="Name" [(ngModel)]="current.name" formControlName="name">
+      </td>
+      <td>
+          <input placeholder="Location" [(ngModel)]="current.location" formControlName="location">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <ng-container *ngIf="selected">
+            <app-customer-edit [customer]="selected"
+                                (updateEvent)="editUpdate($event)"
+                                (cancelEvent)="editCancel($event)"></app-customer-edit>
+        </ng-container>
+    </div>
+  </ng-template> -->
+  
+<ng-container *ngIf="selected">
+<app-customer-edit [customer]="selected"
+                    (updateEvent)="editUpdate($event)"
+                    (cancelEvent)="editCancel($event)"></app-customer-edit>
+</ng-container>
+<!-- <pre>
+  {{current | json}}
+</pre>
+
+<pre>
+  {{data | json}}
+</pre> -->
